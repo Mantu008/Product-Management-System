@@ -12,6 +12,11 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(cors());
 
+//demo
+app.get("/", (req, resp) => {
+  resp.send("Server is Running Now......");
+});
+
 // Register a new user
 app.post("/register", async (req, res) => {
   const { name, username, password, role } = req.body;
