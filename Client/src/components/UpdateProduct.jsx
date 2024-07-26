@@ -6,7 +6,7 @@ const UpdateProduct = () => {
   const navigate = useNavigate();
 
   const getProducts = async () => {
-    let data = await fetch("http://localhost:2000/", {
+    let data = await fetch("http://localhost:2000/allproduct", {
       method: "get",
       headers: {
         "Content-Type": "application/json",

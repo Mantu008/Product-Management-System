@@ -107,7 +107,7 @@ app.post("/", verifyToken, async (req, res) => {
 });
 
 // Read all products
-app.get("/", verifyToken, async (req, res) => {
+app.get("/allproduct", verifyToken, async (req, res) => {
   try {
     const products = await Product.find();
     res.send(products);
