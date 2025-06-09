@@ -54,31 +54,31 @@ export default function App() {
                           All Products
                         </Link>
 
-                        {JSON.parse(localStorage.getItem("user")).userData
-                          .role === "admin" && (
-                          <>
-                            <Link
-                              to="/addProduct"
-                              className="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-950 hover:text-white bg-slate-500"
-                            >
-                              Add Product
-                            </Link>
+                        {localStorage.getItem("user") &&
+                          JSON.parse(localStorage.getItem("user"))?.userData?.role === "admin" && (
+                            <>
+                              <Link
+                                to="/addProduct"
+                                className="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-950 hover:text-white bg-slate-500"
+                              >
+                                Add Product
+                              </Link>
 
-                            <Link
-                              to="/deleteProduct"
-                              className="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-950 hover:text-white bg-slate-500"
-                            >
-                              Delete Product
-                            </Link>
+                              <Link
+                                to="/deleteProduct"
+                                className="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-950 hover:text-white bg-slate-500"
+                              >
+                                Delete Product
+                              </Link>
 
-                            <Link
-                              to="/updateProduct"
-                              className="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-950 hover:text-white bg-slate-500"
-                            >
-                              Update Products
-                            </Link>
-                          </>
-                        )}
+                              <Link
+                                to="/updateProduct"
+                                className="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-950 hover:text-white bg-slate-500"
+                              >
+                                Update Products
+                              </Link>
+                            </>
+                          )}
                       </div>
                     ) : (
                       ""

@@ -24,7 +24,7 @@ const Signup = () => {
         try {
           let response = await fetch("http://localhost:2000/login", {
             method: "POST",
-            body: JSON.stringify({ username: email, password: password }),
+            body: JSON.stringify({ email: email, password: password }),
             headers: {
               "Content-Type": "application/json",
             },
@@ -59,7 +59,7 @@ const Signup = () => {
             method: "POST",
             body: JSON.stringify({
               name: fullName,
-              username: email,
+              email: email,
               password: password,
               role: "user",
             }),
@@ -72,11 +72,14 @@ const Signup = () => {
             let data = await response.json();
             alert("User registered successfully. Please log in.");
             localStorage.setItem("token", JSON.stringify(data.auth));
+            navigate("/login");
           } else {
-            alert("Something went wrong. Please try again.");
+            const errorData = await response.json();
+            alert(errorData.message || "Something went wrong. Please try again.");
           }
         } catch (error) {
-          alert("Server problem");
+          console.error("Registration error:", error);
+          alert("Server problem. Please try again later.");
         }
       } else {
         alert("Please fill out all fields.");

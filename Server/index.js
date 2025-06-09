@@ -2,8 +2,8 @@ const express = require("express");
 require("./dbConnections");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
-const Product = require("./Models/products");
-const User = require("./Models/user");
+const Product = require("./models/products");
+const User = require("./models/User");
 var jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 
@@ -19,12 +19,12 @@ app.get("/", (req, resp) => {
 
 // Register a new user
 app.post("/register", async (req, res) => {
-  const { name, username, password, role } = req.body;
+  const { name, email, password, role } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({
       name,
-      username,
+      email,
       password: hashedPassword,
       role,
     });
@@ -44,7 +44,12 @@ app.post("/register", async (req, res) => {
       }
     );
   } catch (error) {
-    res.status(400).send(error);
+    console.log("Registration error:", error);
+    res.status(400).json({ 
+      message: "Registration failed", 
+      error: error.message,
+      details: error.errors 
+    });
   }
 });
 
@@ -67,9 +72,9 @@ function verifyToken(req, res, next) {
 
 // Login a user
 app.post("/login", async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
   try {
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ email });
     if (!user) return res.status(404).send("User not found");
 
     const validPassword = await bcrypt.compare(password, user.password);
